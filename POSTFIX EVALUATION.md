@@ -1,46 +1,59 @@
-# Exp.No:31  
-## IMPLEMENTATION OF STACK
+# Exp.No:33  
+## POSTFIX EVALUATION
+
 
 ### AIM  
-Write a Python program to implement stack using List and its built-in methods (append() and pop() ) in Python. Get five items from the user and save them in stack, then pop two items from stack and display the stack before and after popped.
-
+To write a Python program to evaluate a user-given Postfix expression that contains Multiplication and Addition operators using the stack concept.
 
 ### ALGORITHM
 
-1. Start the program.
-2. Initialize an empty list called stack.
-3. Repeat 5 times (for i = 1 to 5):
-4. Take input from the user.
-5. Append the input to the stack using append().
-6. Display "Stack before elements are popped".
-7. Print the current contents of stack.
-8. Repeat 2 times (for i = 1 to 2):
-9. Remove the last element from the stack using pop().
-10. Display "Stack after elements are popped".
-11. Print the updated contents of stack.
-10. End the program.
+1. **Start the program.**
+2. Define a set named `OPERATORS` containing all the valid operators: `*, +, **, -, /, %`.
+3. Define a function `evaluate_postfix(exp)` to evaluate the postfix expression:
+   - Inside the function, create an empty list called `stack` to store operands and intermediate results.
+4. Loop through each item in the given postfix expression:
+   - If the current item is **not in OPERATORS**, it is an operand, so append it to the stack.
+   - If the current item is an **operator**:
+     - Pop the top two elements from the stack (first pop is `a`, second pop is `b`).
+     - Perform the operation `b <operator> a` depending on the current operator.
+     - Store the result in a variable called `result`.
+     - Append the result back to the stack.
+5. After the loop ends, return the first element of the stack as the final evaluation result.
+6. Take a postfix expression as input from the user.
+7. Print the postfix expression.
+8. Call the function `evaluate_postfix()` with the input and print the result.
+9. **End the program.**
 
 
 ### PROGRAM
 
 ```
-Reg.no: 212223060125
-Name: Kesavan.S
+Reg.No: 212223060125
+Name: kKesavan.S
 
-stack = []
-for i in range (5):
-    a=input()
-    stack.append(a)
-print("Stack before elements are popped")
-print(stack)
-print()
-for i in range(2):
-    stack.pop()
-print('Stack after elements are popped:')
-print(stack)
+OPERATORS=set(['*','+']) 
+def evaluate_postfix(expression):
+    stack=[] 
+    for i in expression:
+        if i not in OPERATORS:
+            stack.append(i)  
+        else:
+            a=stack.pop()  
+            b=stack.pop()
+            if i=='+':
+                res=int(b)+int(a)  
+            elif i=='*':
+                res=int(b)*int(a)
+            stack.append(res) 
+    return stack[0]
+expression = input()
+print('postfix expression: ',expression)
+print('Evaluation result: ',evaluate_postfix(expression))
+
 ```
-## output
-<img width="1519" height="700" alt="image" src="https://github.com/user-attachments/assets/6cf1f6f9-4922-446b-b8be-1d3f657e93a2" />
 
-# Result
-Successfully implemented a stack using Python list. Items were added using append() and removed using pop(), demonstrating LIFO (Last In First Out) behavior of stack.
+### OUTPUT
+<img width="817" height="183" alt="image" src="https://github.com/user-attachments/assets/f905045d-4ecb-4f13-9a3d-99c3fcf1720c" />
+
+### RESULT
+The program evaluates the given postfix expression using stack operations and displays the final result.
